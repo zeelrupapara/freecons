@@ -59,3 +59,36 @@ func (db *DatabaseControllers) GetErrorLinksData(c echo.Context) error {
 	}
 	return c.JSON(200, errorlinks)
 }
+
+func (db *DatabaseControllers) GetDashboardData(c echo.Context) error {
+	var dashboard models.Dashboard
+	result, err := db.Database.Query("SELECT COUNT(*) FROM icons")
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	defer result.Close()
+	err = result.Scan(&dashboard.TotalIcons)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+
+	result, err = db.Database.Query("SELECT COUNT(*) FROM icons WHERE status = 200")
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	defer result.Close()
+	err = result.Scan(&dashboard.TotalActiveIcons)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	result, err = db.Database.Query("SELECT COUNT(*) FROM error_links")
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	defer result.Close()
+	err = result.Scan(&dashboard.TotalErrorIcons)
+	if err != nil {
+		return c.JSON(500, err)
+	}
+	return c.JSON(200, dashboard)
+}
