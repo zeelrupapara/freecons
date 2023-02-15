@@ -4,11 +4,11 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"net/http"
 	"os"
 
-	"github.com/labstack/echo/v4/middleware"
+	"freecons/routes"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/cobra"
 )
 
@@ -24,16 +24,6 @@ var apiCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(apiCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// apiCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// apiCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // For running api server
@@ -42,8 +32,7 @@ func runAPIServer() {
 
 	app.Use(middleware.Logger(), middleware.CORS())
 
-	app.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
+	routes.SetupRoutes(app)
+	
 	app.Logger.Fatal(app.Start(os.ExpandEnv(":${PORT}")))
 }
