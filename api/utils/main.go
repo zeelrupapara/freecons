@@ -2,6 +2,8 @@ package utils
 
 import (
 	"bufio"
+	"bytes"
+	"encoding/binary"
 	"encoding/csv"
 	"fmt"
 	"log"
@@ -72,4 +74,10 @@ func GetNameServerRootFromURL(urlString string) (string, error) {
 		name = parts[0]
 		return name, nil
 	}
+}
+
+func StructToBytes(s interface{}) []byte {
+	b := new(bytes.Buffer)
+	binary.Write(b, binary.LittleEndian, s)
+	return b.Bytes()
 }

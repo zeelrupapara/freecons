@@ -60,35 +60,42 @@ func (db *DatabaseControllers) GetErrorLinksData(c echo.Context) error {
 	return c.JSON(200, errorlinks)
 }
 
-func (db *DatabaseControllers) GetDashboardData(c echo.Context) error {
-	var dashboard models.Dashboard
-	result, err := db.Database.Query("SELECT COUNT(*) FROM icons")
+func (db *DatabaseControllers) GetCountIconsData() (models.CountDiffIcons, error) {
+	var countDiffIcons models.CountDiffIcons
+	result := db.Database.QueryRow("SELECT COUNT(*) FROM icons")
+	err := result.Scan(&countDiffIcons.TotalIcons)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
-	defer result.Close()
-	err = result.Scan(&dashboard.TotalIcons)
+	result = db.Database.QueryRow("SELECT created_at FROM icons ORDER BY created_at DESC LIMIT 1")
+	err = result.Scan(&countDiffIcons.TotalIconsTime)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
 
-	result, err = db.Database.Query("SELECT COUNT(*) FROM icons WHERE status = 200")
+	result = db.Database.QueryRow("SELECT COUNT(*) FROM icons WHERE status = 200")
+	err = result.Scan(&countDiffIcons.TotalActiveIcons)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
-	defer result.Close()
-	err = result.Scan(&dashboard.TotalActiveIcons)
+
+	result = db.Database.QueryRow("SELECT created_at FROM icons WHERE status = 200 ORDER BY created_at DESC LIMIT 1")
+	err = result.Scan(&countDiffIcons.TotalActiveIconsTime)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
-	result, err = db.Database.Query("SELECT COUNT(*) FROM error_links")
+
+	result = db.Database.QueryRow("SELECT COUNT(*) FROM errorlinks")
+	err = result.Scan(&countDiffIcons.TotalErrorIcons)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
-	defer result.Close()
-	err = result.Scan(&dashboard.TotalErrorIcons)
+
+	result = db.Database.QueryRow("SELECT created_at FROM errorlinks ORDER BY created_at DESC LIMIT 1")
+	err = result.Scan(&countDiffIcons.TotalErrorIconsTime)
 	if err != nil {
-		return c.JSON(500, err)
+		return countDiffIcons, err
 	}
-	return c.JSON(200, dashboard)
+
+	return countDiffIcons, nil
 }

@@ -16,3 +16,12 @@ type Graph struct {
 	Label string `json:"label"`
 	Data  int    `json:"data"`
 }
+
+type CountDiffIcons struct {
+	TotalIcons           int       `json:"total_icons"`
+	TotalIconsTime       time.Time `json:"total_icons_time"`
+	TotalActiveIcons     int       `json:"total_active_icons"`
+	TotalActiveIconsTime time.Time `json:"total_active_icons_time"`
+	TotalErrorIcons      int       `json:"total_error_icons"`
+	TotalErrorIconsTime  time.Time `json:"total_error_icons_time"`
+}

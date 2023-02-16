@@ -18,4 +18,5 @@ func SetupRoutes(app *echo.Echo) {
 	NewDatabaseControllers := controllers.DatabaseControllers{Database: database}
 	app.GET("api/v1/icons", NewDatabaseControllers.GetIconsData)
 	app.GET("api/v1/errorlinks", NewDatabaseControllers.GetErrorLinksData)
+	app.GET("api/v1/dashboard/counts", NewDatabaseControllers.GetCountOfIcons)
 }

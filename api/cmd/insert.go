@@ -80,6 +80,7 @@ var insertCmd = &cobra.Command{
 			insertCSVData(database, icons)
 			if counter == batchSize {
 				// wg.Wait()
+				time.Sleep(5 * time.Second)
 				fmt.Println(time.Since(now))
 				fmt.Println(batchSize, ": Record Inserted")
 				counter = 0
@@ -106,7 +107,7 @@ func insertCSVData(database *sql.DB, icons models.Icons) {
 		return
 	}
 	icons.Status = statusCode
-	_, err = database.Exec("INSERT INTO icons (url, name, status, icon_url) VALUES (?, ?, ?, ?)", icons.URL, icons.Name, icons.IconURL, icons.Status)
+	_, err = database.Exec("INSERT INTO icons (url, name, status, icon_url) VALUES (?, ?, ?, ?)", icons.URL, icons.Name, icons.Status, icons.IconURL)
 	if err != nil {
 		log.Println(err)
 	}
