@@ -13,15 +13,21 @@ type Dashboard struct {
 }
 
 type Graph struct {
-	Label string `json:"label"`
-	Data  int    `json:"data"`
+	Labels []string `json:"labels"`
+	Data   []int    `json:"data"`
 }
 
 type CountDiffIcons struct {
-	TotalIcons           int       `json:"total_icons"`
-	TotalIconsTime       time.Time `json:"total_icons_time"`
-	TotalActiveIcons     int       `json:"total_active_icons"`
-	TotalActiveIconsTime time.Time `json:"total_active_icons_time"`
-	TotalErrorIcons      int       `json:"total_error_icons"`
-	TotalErrorIconsTime  time.Time `json:"total_error_icons_time"`
+	TotalIcons           int    `json:"total_icons"`
+	TotalIconsTime       string `json:"total_icons_time"`
+	TotalActiveIcons     int    `json:"total_active_icons"`
+	TotalActiveIconsTime string `json:"total_active_icons_time"`
+	TotalErrorIcons      int    `json:"total_error_icons"`
+	TotalErrorIconsTime  string `json:"total_error_icons_time"`
+}
+
+type LineChart struct {
+	Dates  []string `json:"dates"`
+	Labels []string `json:"labels"`
+	Data   [][]int  `json:"data"`
 }

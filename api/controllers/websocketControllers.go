@@ -24,7 +24,7 @@ func (db *DatabaseControllers) GetCountOfIcons(c echo.Context) error {
 	}
 	if ws == nil {
 		c.Logger().Error("Waiting for websocket connection...")
-		time.Sleep(2 * time.Second)
+		time.Sleep(4 * time.Second)
 	}
 	defer ws.Close()
 	for {
@@ -43,6 +43,7 @@ func (db *DatabaseControllers) GetCountOfIcons(c echo.Context) error {
 			c.Logger().Error(err)
 			return err
 		}
-		time.Sleep(2 * time.Second)
+		time.Sleep(5 * time.Second)
 	}
 }
+

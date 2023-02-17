@@ -10,7 +10,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -80,4 +82,23 @@ func StructToBytes(s interface{}) []byte {
 	b := new(bytes.Buffer)
 	binary.Write(b, binary.LittleEndian, s)
 	return b.Bytes()
+}
+
+func ParseTime(t string) (time.Time, error) {
+	var pt time.Time
+	pt, err := time.Parse(time.RFC3339, t)
+	if err != nil {
+		return pt, err
+	}
+	return pt, nil
+}
+
+func CalculatePercentage(count int, totalCount int) string {
+	percentage := (count * 100) / totalCount
+	return strconv.Itoa(percentage)
+}
+
+func GetTwoHoursTimestamp() []string {
+	timeStamp := []string{"00:00:00", "02:00:00", "04:00:00", "06:00:00", "08:00:00", "10:00:00", "12:00:00", "14:00:00", "16:00:00", "18:00:00", "20:00:00", "22:00:00", "23:59:59"}
+	return timeStamp
 }

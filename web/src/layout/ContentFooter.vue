@@ -12,7 +12,7 @@
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
         <a href="https://binarcode.com" target="_blank">BinarCode</a>.
-        Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">Creative Tim</a>.
+        Designed by <a href="https://jeelr.me" target="_blank">Creative Jeel</a>.
       </div>
     </div>
   </footer>
