@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"bytes"
+	"encoding/base64"
 	"encoding/binary"
 	"encoding/csv"
 	"fmt"
@@ -101,4 +102,14 @@ func CalculatePercentage(count int, totalCount int) string {
 func GetTwoHoursTimestamp() []string {
 	timeStamp := []string{"00:00:00", "02:00:00", "04:00:00", "06:00:00", "08:00:00", "10:00:00", "12:00:00", "14:00:00", "16:00:00", "18:00:00", "20:00:00", "22:00:00", "23:59:59"}
 	return timeStamp
+}
+
+func EncodeString(s string) string {
+	encodedStr := base64.StdEncoding.EncodeToString([]byte(s))
+	return encodedStr
+}
+
+func DecodeString(s string) string {
+	decodedStr, _ := base64.StdEncoding.DecodeString(s)
+	return string(decodedStr)
 }

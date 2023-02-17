@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   web:
+    container_name: web
     build:
       context: ./web/
     ports:
@@ -11,6 +12,7 @@ services:
       - ./web/:/usr/src/app/
 
   api:
+    container_name: api
     build:
       context: ./api/
     ports:
