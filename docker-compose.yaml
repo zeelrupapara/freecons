@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: ./web/
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    volumes:
+      - ./web/:/usr/src/app/
+
+  api:
+    build:
+      context: ./api/
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api/:/usr/src/app/
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/nginx/:rw
+    depends_on:
+      - "api"
+      - "web"
+    restart: on-failure
