@@ -55,7 +55,7 @@ var insertCmd = &cobra.Command{
 			log.Fatal("Database Not Connected Due To: ", err)
 		}
 		if databaseEmtpy(database) {
-			log.Fatalln("Database Empty")
+			log.Println("Database Empty")
 			for _, row := range rows[1:] {
 				now := time.Now()
 				url, err := checkurl.Parse(row[index])
