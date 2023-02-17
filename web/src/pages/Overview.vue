@@ -193,23 +193,12 @@ export default {
     lineChartData() {
       console.log("hello");
       return this.lineChart.data;
-    }
+    },
   },
   async mounted() {
     await this.getPieChatDate();
     await this.getLineChart();
-    console.log("Started conecting to websocket");
-    this.connection = new WebSocket(
-      "ws://localhost:8080/api/v1/dashboard/counts"
-    );
-    this.connection.onopen = (event) => {
-      console.log(event);
-      console.log("Connected to websocket");
-    };
-    this.connection.onmessage = (event) => {
-      this.countsDetails = JSON.parse(event.data);
-      console.log(this.countsDetails);
-    };
+    await this.getCounts();
   },
   methods: {
     getPieChatDate() {
@@ -223,6 +212,11 @@ export default {
         this.lineChart.data.series = response.data.data;
         this.lineChart.data.labels = response.data.labels;
         this.dates = response.data.dates;
+      });
+    },
+    getCounts() {
+      axios.get("/api/v1/dashboard/counts").then((response) => {
+        this.countsDetails = response.data;
       });
     },
     getDataFromThatDay(event) {

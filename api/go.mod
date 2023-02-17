@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/go-ping/ping v1.1.0
-	github.com/gorilla/websocket v1.4.0
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/mattn/go-sqlite3 v1.14.15
