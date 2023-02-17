@@ -55,8 +55,37 @@ var insertCmd = &cobra.Command{
 			log.Fatal("Database Not Connected Due To: ", err)
 		}
 		if databaseEmtpy(database) {
-			log.Fatalln("Database Not Empty")
-			return
+			log.Fatalln("Database Empty")
+			for _, row := range rows[1:] {
+				now := time.Now()
+				url, err := checkurl.Parse(row[index])
+				if err != nil {
+					log.Fatalln(err)
+					continue
+				}
+				if url.Scheme == "" {
+					iconURL = fmt.Sprintf("https://%s/favicon.ico", url)
+				} else {
+					iconURL = fmt.Sprintf("%s/favicon.ico", url)
+				}
+				name, err := utils.GetNameServerRootFromURL(url.String())
+				if err != nil {
+					log.Println(err)
+				}
+				icons := models.Icons{
+					URL:     url.String(),
+					Name:    name,
+					IconURL: iconURL,
+				}
+				insertCSVData(database, icons)
+				if counter == batchSize {
+					time.Sleep(2 * time.Second)
+					fmt.Println(time.Since(now))
+					fmt.Println(batchSize, ": Record Inserted")
+					counter = 0
+				}
+				counter++
+			}
 		}
 		lastInsertdURL := getDatabaseLastInserdRow(database)
 		fmt.Println("Started Inserting Data")
