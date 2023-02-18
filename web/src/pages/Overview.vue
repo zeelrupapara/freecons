@@ -62,45 +62,19 @@
           >
             <template slot="header">
               <h4 class="card-title mb-4">Icons Analitics</h4>
-              <div class="row mb-4">
-                <div class="col col-11">
-                  <select class="custom-select" @change="getDataFromThatDay">
-                    <option v-for="date in dates" :key="date" :value="date">
-                      {{ date }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col col-1 mt-1">
-                  <button type="button" class="btn btn-sm btn-light">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-arrow-clockwise"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
-                      />
-                      <path
-                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"
-                      />
-                    </svg>
-                  </button>
-                </div>
+              <div class="mb-4">
+                <select class="custom-select" @change="getDataFromThatDay">
+                  <option v-for="date in dates" :key="date" :value="date">
+                    {{ date }}
+                  </option>
+                </select>
               </div>
             </template>
             <template slot="footer">
               <div class="legend">
                 <i class="fa fa-circle text-info"></i> Total
-                <i class="fa fa-circle text-success"></i> Activated
-                <i class="fa fa-circle text-danger"></i> Errors
-              </div>
-              <hr />
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
+                <i class="fa fa-circle text-danger"></i> Activated
+                <i class="fa fa-circle text-warning"></i> Errors
               </div>
             </template>
           </chart-card>
@@ -113,14 +87,13 @@
               <p class="card-category">Inserted Icons Analitics</p>
             </template>
             <template slot="footer">
+              <div class="pb-5">
+                <div class="pb-5"></div>
+              </div>
               <div class="legend">
                 <i class="fa fa-circle text-info"></i> Total
-                <i class="fa fa-circle text-success"></i> Activated
-                <i class="fa fa-circle text-danger"></i> Errors
-              </div>
-              <hr />
-              <div class="stats">
-                <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                <i class="fa fa-circle text-danger"></i> Activated
+                <i class="fa fa-circle text-warning"></i> Errors
               </div>
             </template>
           </chart-card>
