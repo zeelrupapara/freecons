@@ -21,6 +21,7 @@ func SetupRoutes(app *echo.Echo) {
 	app.GET("api/v1/dashboard/counts", NewDatabaseControllers.GetCountIconsData)
 	app.GET("api/v1/dashboard/piechart", NewDatabaseControllers.GetPieChart)
 	app.GET("api/v1/dashboard/linechart", NewDatabaseControllers.GetLineChart)
+	app.GET("api/v1/icons/url", NewDatabaseControllers.GetIconsList)
 
 	app.File("api/v1/downloads/db", "data/icons.db")
 }
